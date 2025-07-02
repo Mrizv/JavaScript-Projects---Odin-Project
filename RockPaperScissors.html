@@ -1,13 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        console.log("Hello World")
+      /*
+       * Step 1: (computer logic)
+       * Create new function named getComputerChoice
+       * getComputerChoice randomly returns either "rock", "paper", or "scissors"
+       * Math.random method returns random number >= 0 & < 1 : use conditions
+       * Test using console.log()
+       */
+      function getComputerChoice() {
+        const randomNum = Math.random();
+        if (randomNum <= 0.33) {
+          return "rock";
+        } else if (randomNum <= 0.66) {
+          return "paper";
+        } else {
+          return "scissors";
+        }
+      }
+      /*
+       * Step 2: (human logic)
+       * Create new function named getHumanChoice
+       * getHumanChoice will use prompt method to get user's input
+       * Assume user will always enter valid choice
+       * Test using console.log()
+       */
+      function getHumanChoice() {
+        let choice = prompt("Choose either 'rock', 'paper', or 'scissors'");
+        if (choice === "rock") {
+          return "User chose Rock!";
+        } else if (choice === "paper") {
+          return "User chose Paper!";
+        } else {
+          return "User chose Scissors!";
+        }
+      }
+
+      /*
+       * Step 3: (Declare player score variables)
+       * create two new variables: humanScore & computerScore in global scope
+       * initialize both variables to 0
+       */
+      let humanScore = 0;
+      let computerScore = 0;
+      /*
+       * Step 4: (Logic for single round)
+       * create new function playRound
+       * define two params for playRound: humanChoice & computerChoice
+       * humanChoice param will be case-insensitive
+       * write code for playRound function to console.log a string value rep. round winner
+       * increment humanScore or computerScore based on round winner
+       */
+      function playRound(humanChoice, computerChoice) {
+        let caseInsensitive = humanChoice.toLowerCase();
+        let normalComputerChoice = computerChoice.toLowerCase();
+        let combinedChoices = `${caseInsensitive}-${normalComputerChoice}`;
+
+        if (caseInsensitive === normalComputerChoice) {
+          return "No Winners, it's a tie!";
+        }
+
+        switch (combinedChoices) {
+          case "rock-scissors":
+          case "paper-rock":
+          case "scissors-paper":
+            humanScore++;
+            return "User Wins! Computer Loses";
+          case "rock-paper":
+          case "paper-scissors":
+          case "scissors-rock":
+            computerScore++;
+            return "Computer Wins! User Loses";
+          default:
+            return "Invalid Input!";
+        }
+      }
+
+      const humanSelection = getHumanChoice();
+      const computerSelection = getComputerChoice();
+
+      playRound(humanSelection, computerSelection);
+
+      /*
+       * Step 5: (Build logic to play whole game)
+       * Game will play 5 rounds
+       * create function playGame
+       * move playRound function & score variables so they are declared in playGame func
+       * call playRound 5 times
+       */
     </script>
-</body>
+  </body>
 </html>
