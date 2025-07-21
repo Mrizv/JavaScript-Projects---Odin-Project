@@ -25,21 +25,21 @@
       choice1.addEventListener("click", () => {
         humanChoice = "rock";
         playerChoiceDisplay.textContent = "You Chose: Rock";
-        playRound(humanChoice);
+        playRounds(humanChoice);
       });
 
       const choice2 = document.getElementById("paper");
       choice2.addEventListener("click", () => {
         humanChoice = "paper";
         playerChoiceDisplay.textContent = "You Chose: Paper";
-        playRound(humanChoice);
+        playRounds(humanChoice);
       });
 
       const choice3 = document.getElementById("scissors");
       choice3.addEventListener("click", () => {
         humanChoice = "scissors";
         playerChoiceDisplay.textContent = "You Chose: Scissors";
-        playRound(humanChoice);
+        playRounds(humanChoice);
       });
 
       /*
@@ -88,7 +88,6 @@
        * create two new variables: humanScore & computerScore in global scope
        * initialize both variables to 0
        */
-
       let humanScore = 0;
       let computerScore = 0;
 
@@ -100,8 +99,10 @@
        * write code for playRound function to console.log a string value rep. round winner
        * increment humanScore or computerScore based on round winner
        */
-
-      function playRound(playerSelection) {
+      function playRounds(playerSelection) {
+        if (humanScore >= 5 || computerScore >= 5) {
+          return;
+        }
         // DON'T NEED CASE SENSITIVITY FOR BUTTONS
         // let caseInsensitive = humanChoice.toLowerCase();
         // let normalComputerChoice = computerChoice.toLowerCase();
@@ -125,6 +126,18 @@
         document.getElementById(
           "runningScoreDisplay"
         ).textContent = `You now have ${humanScore} points and the computer has ${computerScore}`;
+
+        if (humanScore === 5 || computerScore === 5) {
+          const winner = humanScore === 5 ? "You" : "The Computer";
+          document.getElementById(
+            "roundResultDisplay"
+          ).textContent = `${winner} won the game!`;
+
+          humanScore = 0;
+          computerScore = 0;
+
+          runningScoreDisplay.textContent = `You now have ${humanScore} points and the computer has ${computerScore} points`;
+        }
       }
 
       // const humanSelection = getHumanChoice();
