@@ -14,6 +14,7 @@
     <p id="playerChoiceDisplay"></p>
     <p id="computerChoiceDisplay"></p>
     <p id="roundResultDisplay"></p>
+    <p id="runningScoreDisplay"></p>
     <script>
       let humanChoice = "";
       const playerChoiceDisplay = document.getElementById(
@@ -115,10 +116,15 @@
           (playerSelection === "scissors" && computerSelection === "paper")
         ) {
           roundResult = `You Win! You chose ${playerSelection} which beats ${computerSelection}!`;
+          humanScore++;
         } else {
           roundResult = `You Lose! The Computer chose ${computerSelection} which beats ${playerSelection}`;
+          computerScore++;
         }
         document.getElementById("roundResultDisplay").textContent = roundResult;
+        document.getElementById(
+          "runningScoreDisplay"
+        ).textContent = `You now have ${humanScore} points and the computer has ${computerScore}`;
       }
 
       // const humanSelection = getHumanChoice();
