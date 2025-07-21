@@ -6,7 +6,41 @@
     <title>Document</title>
   </head>
   <body>
+    <div id="choices">
+      <button id="rock">Rock</button>
+      <button id="paper">Paper</button>
+      <button id="scissors">Scissors</button>
+    </div>
+    <p id="playerChoiceDisplay"></p>
+    <p id="computerChoiceDisplay"></p>
+    <p id="roundResultDisplay"></p>
     <script>
+      let humanChoice = "";
+      const playerChoiceDisplay = document.getElementById(
+        "playerChoiceDisplay"
+      );
+
+      const choice1 = document.getElementById("rock");
+      choice1.addEventListener("click", () => {
+        humanChoice = "rock";
+        playerChoiceDisplay.textContent = "You Chose: Rock";
+        playRound(humanChoice);
+      });
+
+      const choice2 = document.getElementById("paper");
+      choice2.addEventListener("click", () => {
+        humanChoice = "paper";
+        playerChoiceDisplay.textContent = "You Chose: Paper";
+        playRound(humanChoice);
+      });
+
+      const choice3 = document.getElementById("scissors");
+      choice3.addEventListener("click", () => {
+        humanChoice = "scissors";
+        playerChoiceDisplay.textContent = "You Chose: Scissors";
+        playRound(humanChoice);
+      });
+
       /*
        * Step 1: (computer logic)
        * Create new function named getComputerChoice
@@ -17,10 +51,13 @@
       function getComputerChoice() {
         const randomNum = Math.random();
         if (randomNum <= 0.33) {
+          computerChoiceDisplay.textContent = "Computer Chose: Rock";
           return "rock";
         } else if (randomNum <= 0.66) {
+          computerChoiceDisplay.textContent = "Computer Chose: Paper";
           return "paper";
         } else {
+          computerChoiceDisplay.textContent = "Computer Chose: Scissors";
           return "scissors";
         }
       }
@@ -31,6 +68,8 @@
        * Assume user will always enter valid choice
        * Test using console.log()
        */
+
+      /* CUT OUT SINCE HUMAN CHOICE IS NOW BUTTON
       function getHumanChoice() {
         let choice = prompt("Choose either 'rock', 'paper', or 'scissors'");
         if (choice === "rock") {
@@ -41,6 +80,7 @@
           return choice;
         }
       }
+      */
 
       /*
        * Step 3: (Declare player score variables)
@@ -48,51 +88,43 @@
        * initialize both variables to 0
        */
 
-      /*
-        let humanScore = 0;
-        let computerScore = 0;
-      /*
-
-        /*
-         * Step 4: (Logic for single round)
-         * create new function playRound
-         * define two params for playRound: humanChoice & computerChoice
-         * humanChoice param will be case-insensitive
-         * write code for playRound function to console.log a string value rep. round winner
-         * increment humanScore or computerScore based on round winner
-         */
+      let humanScore = 0;
+      let computerScore = 0;
 
       /*
-        function playRound(humanChoice, computerChoice) {
-          let caseInsensitive = humanChoice.toLowerCase();
-          let normalComputerChoice = computerChoice.toLowerCase();
-          let combinedChoices = `${caseInsensitive}-${normalComputerChoice}`;
+       * Step 4: (Logic for single round)
+       * create new function playRound
+       * define two params for playRound: humanChoice & computerChoice
+       * humanChoice param will be case-insensitive
+       * write code for playRound function to console.log a string value rep. round winner
+       * increment humanScore or computerScore based on round winner
+       */
 
-          if (caseInsensitive === normalComputerChoice) {
-            return "No Winners, it's a tie!";
-          }
-
-          switch (combinedChoices) {
-            case "rock-scissors":
-            case "paper-rock":
-            case "scissors-paper":
-              humanScore++;
-              return "User Wins! Computer Loses";
-            case "rock-paper":
-            case "paper-scissors":
-            case "scissors-rock":
-              computerScore++;
-              return "Computer Wins! User Loses";
-            default:
-              return "Invalid Input!";
-          }
-        }
-
-        const humanSelection = getHumanChoice();
+      function playRound(playerSelection) {
+        // DON'T NEED CASE SENSITIVITY FOR BUTTONS
+        // let caseInsensitive = humanChoice.toLowerCase();
+        // let normalComputerChoice = computerChoice.toLowerCase();
         const computerSelection = getComputerChoice();
+        let roundResult = "";
 
-        playRound(humanSelection, computerSelection);
-      */
+        if (playerSelection === computerSelection) {
+          roundResult = "No Winners, it's a tie!";
+        } else if (
+          (playerSelection === "rock" && computerSelection === "scissors") ||
+          (playerSelection === "paper" && computerSelection === "rock") ||
+          (playerSelection === "scissors" && computerSelection === "paper")
+        ) {
+          roundResult = `You Win! You chose ${playerSelection} which beats ${computerSelection}!`;
+        } else {
+          roundResult = `You Lose! The Computer chose ${computerSelection} which beats ${playerSelection}`;
+        }
+        document.getElementById("roundResultDisplay").textContent = roundResult;
+      }
+
+      // const humanSelection = getHumanChoice();
+      // const computerSelection = getComputerChoice();
+
+      // playRound(humanSelection, computerSelection);
 
       /*
        * Step 5: (Build logic to play whole game)
@@ -102,6 +134,7 @@
        * call playRound 5 times
        */
 
+      /* REMOVING LOGIC THAT PLAYS 5 ROUNDS
       function playGame() {
         let humanScore = 0;
         let computerScore = 0;
@@ -128,14 +161,14 @@
           }
         }
 
-        /* REMOVING LOGIC THAT PLAYS 5 ROUNDS
         for (let i = 0; i < 5; i++) {
           const humanSelection = getHumanChoice();
           const computerSelection = getComputerChoice();
           const result = playRound(humanSelection, computerSelection);
           console.log(`Round ${i + 1}: ${result}`);
         }
-        */
+        
+
         console.log(
           `Final Scores: Human: ${humanScore}, Computer: ${computerScore}`
         );
@@ -149,6 +182,7 @@
       }
 
       console.log(playGame());
+      */
     </script>
   </body>
 </html>
